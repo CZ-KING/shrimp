@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+{% extends "base.html" %}
+{% block title %}虾问-首页{% endblock title %}
+{% load static %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/header.css' %}">
+<link rel="stylesheet" href="{% static 'css/index.css' %}">
+{% endblock css %}
+
+{% block js %}
+<script src="{% static 'js/index.js' %}"></script>
+<script src="{% static 'js/question.js' %}"></script>
+<script src="{% static 'js/comment.js' %}"></script>
+{% endblock js %}
+
+
+
+{% block body %}   
+	<div class="header_container">
+	{% csrf_token %}
+		<div class="app_header">
+			<div class="app_logo">
+				<a href="/">
+				<img src="{% static 'images/logo.png' %}" width="100px" height="90%">
+				</a>
+			</div>
+
+			<div class="navigation_box">
+				<ul>
+					<li class="selected"><a href="/">首页</a></li>
+					<!-- <li><a href="#">发现</a></li> -->
+					<li><a href="#">等你来答</a></li>
+				</ul>
+			</div>
+
+			<div class="search_container">
+
+
+					<input name="question" type="text" placeholder="游戏玩得菜怎么办" id="QESinput">
+					<input type="button" name="" value="提问" id="makeQuestion">
+
+
+				<div class="search_detail_box">
+					<div class="search_header_box">
+						<span>搜索历史</span>
+						<span><i class="fa fa-trash" aria-hidden="true"></i>&nbsp;删除</span>
+					</div>
+					<div class="search_history_item">
+						<ul>
+							<li>湖人总冠军</li>
+							<li>有没有超级仙气的朋友圈文案</li>
+							<li>一给我里giaogiao</li>
+							<li>人在读大学时努力起来有多可怕？</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+
+			<div class="user_profile_container">
+				<span class="im_bell_icon">
+					<i class="fa fa-bell" aria-hidden="true"></i>
+					<span class="number">3</span>
+				</span>
+				<span class="im_messages_icon">
+					<i class="fa fa-comments" aria-hidden="true"></i>
+					<span class="number">2</span>
+				</span>
+				<div class="profile_img_box">
+
+					<img src="{% static '/images/default.jpg' %}" width="30px">
+
+				</div>
+				<span class="menu_arrow"></span>
+				<div class="user_profile_menu" data-userid="{{user.id}}" data-nickname="{{user.username}}">
+					<ul>
+						<li id="urltoken" data-urltoken="{{user.url_token}}"><i class="fa fa-user" aria-hidden="true"></i><a href="/people/{{user.url_token}}">我的主页</a></li>
+						<li><i class="fa fa-cog" aria-hidden="true"></i><a href="#">设置</a></li>
+						<li><i class="fa fa-power-off" aria-hidden="true"></i><a href="#">退出</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+
+		<div class="modal_wrapper">
+			<div class="make_question_container">
+				<span class="close"></span>
+				<div class="ask_title_wrapper">
+					<img src="{% static 'images/default.jpg' %}" alt="profile" width="40px">
+					<div class="ask_title">
+						<textarea name="question_title" type="text" placeholder="写下你的问题，准确地描述问题更容易得到解答"></textarea>
+						<span class="tips">你还没有给问题添加问号</span>
+					</div>
+				</div>
+
+				<div class="askDetail_actionWrapper">
+					<i class="fa fa-font" aria-hidden="true"></i>
+					<i class="fa fa-picture-o" aria-hidden="true"></i>
+				</div>
+
+				<div class="askDetail_inputWrapper">
+					<textarea name="question_description" id="" cols="30" rows="10" placeholder="输入问题背景、条件等详细信息（选填）"></textarea>
+				</div>
+
+				<div class="add_topic_box">
+					<span class="topic">电影</span>
+					<span><i class="fa fa-plus" aria-hidden="true"></i>添加话题（至少添加一个话题）</span>
+				</div>
+				<div class="submit_btn"><button type="submit">提问</button></div>
+			</div>
+		</div>
+
+
+	</div>
+	<div class="content_list_container">
+		<div class="content_list_header">
+			<ul>
+				<li class="selected">推荐</li>
+				<li>关注</li>
+				<li>热榜</li>
+			</ul>
+		</div>
+		{% for answer in answers %}
+		<div class="list_item">
+			<div class="contentItem_title">
+				<a href="/question/{{answer.question_id}}">{{answer.question_title}}</a>
+			</div>
+			<div class="contentItem_answerItem" data-answer-id="{{answer.id}}">
+				<img src="{% static 'images/cover.jpg' %}" alt="">
+
+				<div>{% autoescape off %}{{answer.content}}{% endautoescape %}
+					<span class="showMore_contentItem">阅读全文<i class="fa fa-angle-down" aria-hidden="true"></i></span>
+				</div>
+
+			</div>
+			<div class="contentItem_action_box">
+				<span>
+					<button class="agree"><i class="fa fa-caret-up" aria-hidden="true"></i>赞同</button>
+					<button class="disagree"><i class="fa fa-caret-down" aria-hidden="true"></i></button>
+				</span>
+				<div>
+					<span class="comment"><button><i class="fa fa-comment" aria-hidden="true"></i>添加评论</button></span>
+					<span><button><i class="fa fa-share" aria-hidden="true"></i>分享</button></span>
+					<span><button><i class="fa fa-star" aria-hidden="true"></i>收藏</button></span>
+					<span><button><i class="fa fa-heart" aria-hidden="true"></i>喜欢</button></span>
+					<span><i class="fa fa-ellipsis-h" aria-hidden="true"></i></span>
+				</div>
+			</div>
+		</div>
+		{% endfor %}
+
+		<div class="comment_wrapper">
+		   	<div class="comments_container">
+				<span class="comment-close"></span>
+				<div class="comments_header">
+					<span>399&nbsp;评论</span>
+					<span><i class="fa fa-arrows-h" aria-hidden="true"></i>&nbsp;切换成时间排序</span>
+				</div>
+				<div class="all_comments">全部评论（888）</div>
+				<div class="comments_list_box">
+
+					{% for comment in answer.comments%}
+					<div class="comments_item">
+						<div class="item_left_box">
+							<div class="avatar_and_username">
+
+								<a href="/people/{{comment.url_token}}">
+								<img src="{% static 'images/default.jpg' %}" alt="avatar" width="25px">
+								</a>
+
+								<span>{{comment.username}}</span>
+							</div>
+							<div class="user_says">{{comment.comment}}</div>
+
+							<div class="comments_operations">
+								<span><i class="fa fa-thumbs-up" aria-hidden="true"></i>321</span>
+								<span><i class="fa fa-comments" aria-hidden="true"></i>查看回复</span>
+								<span><i class="fa fa-share" aria-hidden="true"></i>回复</span>
+								<span><i class="fa fa-thumbs-down" aria-hidden="true"></i>踩</span>
+								<span><i class="fa fa-flag" aria-hidden="true"></i>举报</span>
+							</div>
+						</div>
+
+						<div class="item_right_box"><span>10-10</span></div>
+					</div>
+						{% endfor %}
+
+
+
+				    <div class="comments_footer_box">
+
+						<input name="comment" type="text" placeholder="写下你的评论…"> <input type="button" value="发布">
+
+				    </div>
+
+			    </div>
+
+			</div>
+
+
+
+
+
+	</div>
+
+	</div>
+
+{% endblock %}
+</html>

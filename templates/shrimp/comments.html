@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>评论页</title>
+</head>
+<body>
+
+{% for  comment in comments %}
+    {% if comment.comment_id %}
+        <p>{{comment.other_username}} 回复 {{comment.username}}:{{comment.content}}</p>
+    {% else %}
+        <p>{{comment.username}}:{{comment.content}}</p>
+    {% endif %}
+{% endfor %}
+
+<div id="pages" class="text-center" >
+        <nav>
+            <ul class="pagination">
+                <li class="step-links">
+                {% if comments.has_previous %}
+                    <a class='active' href="?answer_id=1&page={{ comments.previous_page_number }}">上一页</a>
+                {% endif %}
+
+                <span class="current">
+                    第 {{ comments.number }}页 共{{ comments.paginator.num_pages }}页</span>
+
+                {% if comments.has_next %}
+                    <a class='active' href="?answer_id=1&page={{ comments.next_page_number }}">下一页</a>
+                {% endif %}
+                </li></ul></nav></div>
+</body>
+</html>

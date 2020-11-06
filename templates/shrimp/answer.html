@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>回答页</title>
+</head>
+<body>
+  {% for  answer in answers %}
+					<div class="userInfo">
+
+						<div><span>{{answer.username}}</span><span>{{answer.slogan}}</span></div>
+					</div>
+					<div class="agree_tips">4,399赞同了该回答</div>
+					<div class="main_answer_box">
+					<p>{{answer.content}}<p>
+					</div>
+					<br/>
+					<br/>
+				{% endfor %}
+</body>
+</html>

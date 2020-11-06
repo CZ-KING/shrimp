@@ -1,0 +1,461 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8">
+    <meta name="renderer" content="webkit">
+    <meta name="force-rendering" content="webkit" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1" />
+    <meta name="viewport"
+        content="width=device-width,user-scalable=no,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0">
+    <script>/*@cc_on window.location.href="http://support.dmeng.net/upgrade-your-browser.html?referrer="+encodeURIComponent(window.location.href); @*/</script>
+    <title>问题 - 虾问</title>
+    <link rel="shortcut icon" type="images/x-icon" href="{% static 'images/shuticon.png' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/question.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/header.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/common.css' %}">
+
+    <link rel="stylesheet" href="{% static 'js/trumbowyg/design/css/trumbowyg.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/font-awesome-4.7.0/css/font-awesome.css' %}" >
+    <script src="{% static 'js/jquery-3.5.1/jquery-3.5.1.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/common.js' %}"></script>
+    <script src="{% static 'js/trumbowyg/trumbowyg.min.js' %}"></script>
+	<script src="{% static 'js/question.js' %}"></script>
+</head>
+
+<body>
+	<div class="header_container">
+	{% csrf_token %}
+		<div class="app_header">
+			<div class="app_logo">
+				<img src="{% static 'images/chipscoco.png' %}" width="100px" height="90%">
+			</div>
+
+			<div class="navigation_box">
+				<ul>
+					<li><a href="/">首页</a></li>
+					<!-- <li><a href="#">发现</a></li> -->
+					<li><a href="#">等你来答</a></li>
+				</ul>
+			</div>
+
+			<div class="search_container">
+				<form action="">
+					<input type="text" placeholder="游戏玩得菜怎么办" id="QESinput">
+					<input type="button" name="" value="提问" id="makeQuestion">
+				</form>
+				<div class="search_detail_box">
+					<div class="search_header_box">
+						<span>搜索历史</span>
+						<span><i class="fa fa-trash" aria-hidden="true"></i>&nbsp;删除</span>
+					</div>
+					<div class="search_history_item">
+						<ul>
+							<li>湖人总冠军</li>
+							<li>有没有超级仙气的朋友圈文案</li>
+							<li>一给我里giaogiao</li>
+							<li>人在读大学时努力起来有多可怕？</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+
+			<div class="user_profile_container">
+				<!-- <span class="im_bell_icon">
+					<i class="fa fa-bell" aria-hidden="true"></i>
+					<span class="number">3</span>
+				</span>
+				<span class="im_messages_icon">
+					<i class="fa fa-comments" aria-hidden="true"></i>
+					<span class="number">2</span>
+				</span>
+				<div class="profile_img_box">
+					<img src="./images/StephenChow.jpg" width="100%">
+				</div>
+				<span class="menu_arrow"></span>
+				<div class="user_profile_menu">
+					<ul>
+						<li><i class="fa fa-user" aria-hidden="true"></i><a href="./profile.html">我的主页</a></li>
+						<li><i class="fa fa-cog" aria-hidden="true"></i><a href="#">设置</a></li>
+						<li><i class="fa fa-power-off" aria-hidden="true"></i><a href="#">退出</a></li>
+					</ul>
+				</div> -->
+				{% if not user %}
+				<span class="im_login_btn"><a href="./login.html">登录</a></span>
+				<span class="im_register_btn"><a href="./register.html">加入虾问</a></span>
+				{% else %}
+				<span class="im_bell_icon">
+					<i class="fa fa-bell" aria-hidden="true"></i>
+					<span class="number">3</span>
+				</span>
+				<span class="im_messages_icon">
+					<i class="fa fa-comments" aria-hidden="true"></i>
+					<span class="number">2</span>
+				</span>
+				<div class="profile_img_box">
+					<img src="{% static 'images/default.jpg' %}" width="40px">
+				</div>
+				<span class="menu_arrow"></span>
+				<div class="user_profile_menu" data-userid="{{user.id}}" data-nickname="{{user.username}}">
+					<ul>
+						<li><i class="fa fa-user" aria-hidden="true"></i><a href="/people/{{user.url_token}}/">我的主页</a></li>
+						<li><i class="fa fa-cog" aria-hidden="true"></i><a href="#">设置</a></li>
+						<li><i class="fa fa-power-off" aria-hidden="true"></i><a href="#">退出</a></li>
+					</ul>
+				</div>
+				{% endif %}
+			</div>
+		</div>
+	</div>
+
+	<form action="">
+		<div class="modal_wrapper">
+			<div class="make_question_container">
+				<span class="close"></span>
+				<div class="ask_title_wrapper">
+					<img src="./images/StephenChow.jpg" alt="profile" width="40px">
+					<div class="ask_title">
+						<textarea type="text" placeholder="写下你的问题，准确地描述问题更容易得到解答"></textarea>
+						<span class="tips">你还没有给问题添加问号</span>
+					</div>
+				</div>
+		
+				<div class="askDetail_actionWrapper">
+					<i class="fa fa-font" aria-hidden="true"></i>
+					<i class="fa fa-picture-o" aria-hidden="true"></i> 
+				</div>
+		
+				<div class="askDetail_inputWrapper">
+					<textarea name="" id="" cols="30" rows="10" placeholder="输入问题背景、条件等详细信息（选填）"></textarea>
+				</div>
+
+				<div class="add_topic_box">
+					<span class="topic">电影</span>
+					<span><i class="fa fa-plus" aria-hidden="true"></i>添加话题（至少添加一个话题）</span>
+				</div>
+				<div class="submit_btn"><button type="submit">提问</button></div>
+			</div>
+
+			<div class="comments_container">
+				<span class="cclose"></span>
+				<div class="comments_header">
+					<span>399&nbsp;评论</span>
+					<span><i class="fa fa-arrows-h" aria-hidden="true"></i>&nbsp;切换成时间排序</span>
+				</div>
+				<div class="all_comments">全部评论（888）</div>
+				<div class="comments_list_box">
+					<div class="comments_item">
+						<div class="item_left_box">
+							<div class="avatar_and_username">
+								<img src="./images/StephenChow.jpg" alt="avatar" width="25px">
+								<span>小约翰</span>
+							</div>
+							<div class="user_says">鲁伯特之泪这么硬?!</div>
+							<div class="comments_operations">
+								<span><i class="fa fa-thumbs-up" aria-hidden="true"></i>321</span>
+								<span><i class="fa fa-comments" aria-hidden="true"></i>查看回复</span>
+								<span><i class="fa fa-share" aria-hidden="true"></i>回复</span>
+								<span><i class="fa fa-thumbs-down" aria-hidden="true"></i>踩</span>
+								<span><i class="fa fa-flag" aria-hidden="true"></i>举报</span>
+							</div>
+						</div>
+
+						<div class="item_right_box"><span>10-10</span></div>
+					</div>
+
+					<div class="comments_item">
+						<div class="item_left_box">
+							<div class="avatar_and_username">
+								<img src="./images/StephenChow.jpg" alt="avatar" width="25px">
+								<span>寸木上春树</span><span class="replay">(作者)回复</span><span>怕熊怕熊怕熊熊</span>
+							</div>
+							<div class="user_says">不是军迷也爱看枪械啊，男人的快乐就是这么简单~</div>
+							<div class="comments_operations">
+								<span><i class="fa fa-thumbs-up" aria-hidden="true"></i>321</span>
+								<span><i class="fa fa-comments" aria-hidden="true"></i>查看回复</span>
+							</div>
+						</div>
+
+						<div class="item_right_box"><span>10-10</span></div>
+					</div>
+
+					<div class="comments_item">
+						<div class="item_left_box">
+							<div class="avatar_and_username">
+								<img src="./images/StephenChow.jpg" alt="avatar" width="25px">
+								<span>小约翰</span>
+							</div>
+							<div class="user_says">鲁伯特之泪这么硬?!</div>
+							<div class="comments_operations">
+								<span><i class="fa fa-thumbs-up" aria-hidden="true"></i>321</span>
+								<span><i class="fa fa-comments" aria-hidden="true"></i>查看回复</span>
+								<span><i class="fa fa-share" aria-hidden="true"></i>回复</span>
+								<span><i class="fa fa-thumbs-down" aria-hidden="true"></i>踩</span>
+								<span><i class="fa fa-flag" aria-hidden="true"></i>举报</span>
+							</div>
+						</div>
+
+						<div class="item_right_box"><span>10-10</span></div>
+					</div>
+
+					<div class="comments_item">
+						<div class="item_left_box">
+							<div class="avatar_and_username">
+								<img src="./images/StephenChow.jpg" alt="avatar" width="25px">
+								<span>小约翰</span>
+							</div>
+							<div class="user_says">鲁伯特之泪这么硬?!</div>
+							<div class="comments_operations">
+								<span><i class="fa fa-thumbs-up" aria-hidden="true"></i>321</span>
+								<span><i class="fa fa-comments" aria-hidden="true"></i>查看回复</span>
+								<span><i class="fa fa-share" aria-hidden="true"></i>回复</span>
+								<span><i class="fa fa-thumbs-down" aria-hidden="true"></i>踩</span>
+								<span><i class="fa fa-flag" aria-hidden="true"></i>举报</span>
+							</div>
+						</div>
+
+						<div class="item_right_box"><span>10-10</span></div>
+					</div>
+
+					<div class="comments_item">
+						<div class="item_left_box">
+							<div class="avatar_and_username">
+								<img src="./images/StephenChow.jpg" alt="avatar" width="25px">
+								<span>小约翰</span>
+							</div>
+							<div class="user_says">鲁伯特之泪这么硬?!</div>
+							<div class="comments_operations">
+								<span><i class="fa fa-thumbs-up" aria-hidden="true"></i>321</span>
+								<span><i class="fa fa-comments" aria-hidden="true"></i>查看回复</span>
+								<span><i class="fa fa-share" aria-hidden="true"></i>回复</span>
+								<span><i class="fa fa-thumbs-down" aria-hidden="true"></i>踩</span>
+								<span><i class="fa fa-flag" aria-hidden="true"></i>举报</span>
+							</div>
+						</div>
+
+						<div class="item_right_box"><span>10-10</span></div>
+					</div>
+
+					<div class="comments_item">
+						<div class="item_left_box">
+							<div class="avatar_and_username">
+								<img src="./images/StephenChow.jpg" alt="avatar" width="25px">
+								<span>小约翰</span>
+							</div>
+							<div class="user_says">鲁伯特之泪这么硬?!</div>
+							<div class="comments_operations">
+								<span><i class="fa fa-thumbs-up" aria-hidden="true"></i>321</span>
+								<span><i class="fa fa-comments" aria-hidden="true"></i>查看回复</span>
+								<span><i class="fa fa-share" aria-hidden="true"></i>回复</span>
+								<span><i class="fa fa-thumbs-down" aria-hidden="true"></i>踩</span>
+								<span><i class="fa fa-flag" aria-hidden="true"></i>举报</span>
+							</div>
+						</div>
+
+						<div class="item_right_box"><span>10-10</span></div>
+					</div>
+
+					<div class="comments_item">
+						<div class="item_left_box">
+							<div class="avatar_and_username">
+								<img src="./images/StephenChow.jpg" alt="avatar" width="25px">
+								<span>小约翰</span>
+							</div>
+							<div class="user_says">鲁伯特之泪这么硬?!</div>
+							<div class="comments_operations">
+								<span><i class="fa fa-thumbs-up" aria-hidden="true"></i>321</span>
+								<span><i class="fa fa-comments" aria-hidden="true"></i>查看回复</span>
+								<span><i class="fa fa-share" aria-hidden="true"></i>回复</span>
+								<span><i class="fa fa-thumbs-down" aria-hidden="true"></i>踩</span>
+								<span><i class="fa fa-flag" aria-hidden="true"></i>举报</span>
+							</div>
+						</div>
+
+						<div class="item_right_box"><span>10-10</span></div>
+					</div>
+
+					<div class="comments_item">
+						<div class="item_left_box">
+							<div class="avatar_and_username">
+								<img src="./images/StephenChow.jpg" alt="avatar" width="25px">
+								<span>小约翰</span>
+							</div>
+							<div class="user_says">鲁伯特之泪这么硬?!</div>
+							<div class="comments_operations">
+								<span><i class="fa fa-thumbs-up" aria-hidden="true"></i>321</span>
+								<span><i class="fa fa-comments" aria-hidden="true"></i>查看回复</span>
+								<span><i class="fa fa-share" aria-hidden="true"></i>回复</span>
+								<span><i class="fa fa-thumbs-down" aria-hidden="true"></i>踩</span>
+								<span><i class="fa fa-flag" aria-hidden="true"></i>举报</span>
+							</div>
+						</div>
+
+						<div class="item_right_box"><span>10-10</span></div>
+					</div>
+				</div>
+
+				<div class="comments_footer_box">
+					<form action="">
+						<input type="text" placeholder="写下你的评论…"><input type="button" value="发布">
+					</form>
+				</div>
+			</div>
+		</div>
+	</form>
+
+	<div class="question_title_container">
+		<div class="question_title_box">
+			<div class="title_and_topics">
+				<div class="topics_box">
+					<ul>
+						<li><a href="#">互联网</a></li>
+						<li><a href="#">生活</a></li>
+						<li><a href="#">女性</a></li>
+						<li><a href="#">兴趣</a></li>
+						<li><a href="#">男性</a></li>
+					</ul>
+				</div>
+				<div class="title_box" data-qid="{{question_obj.id}}">
+					<h2 class="question_title">{{question_obj.title}}</h2>
+					<div class="contentItem_answerItem">
+						<p>{{question_obj.description}}</p>
+					</div>
+				</div>
+				<div class="question_operation_box">
+						<span class="block_btn">关注问题</span>
+						<span class="block_btn write-answer"><i class="fa fa-pencil" aria-hidden="true"></i>写回答</span>
+						<span class="block_btn"><i class="fa fa-user-plus" aria-hidden="true"></i>邀请回答</span>
+						<span><i class="fa fa-thumbs-up" aria-hidden="true"></i>好问题&nbsp;1142</span>
+						<span><i class="fa fa-comment" aria-hidden="true"></i>54&nbsp;评论</span>
+						<span><i class="fa fa-share" aria-hidden="true"></i>分享</span>
+						<span><i class="fa fa-ellipsis-h" aria-hidden="true"></i></span>
+				</div>
+			</div>
+
+			<div class="question_follow_status">
+				<span class="follow_views_num">
+					<p>关注者</p>
+					<p>1525</p>
+				</span>
+				<span class="follow_views_num">
+					<p>被浏览</p>
+					<p>2,183,975</p>
+				</span>
+			</div>
+		</div>
+	</div>
+
+	<div class="main_content_container">
+		<form action="">
+
+			<div class="question_answer_box">
+				<div id="answer_box">
+				<div class="answer_add_header">
+					<img src="{% static 'images/default.jpg' %}" alt="avatar">
+					<div>
+						<span class="username">{{user.username}}</span>
+						<span class="bio">一个不失风度的内涵程序猿<span class="edit_topic"><i class="fa fa-pencil" aria-hidden="true"></i>编辑话题</span></span>
+					</div>
+				</div>
+
+				<div id="my_editor">
+				</div>
+				<div class="setting_submit_group">
+					<span><i class="fa fa-cog" aria-hidden="true"></i>设置</span>
+					<button type="button">提交回答</button>
+				</div>
+				<div class="question_answer_footer">
+					<span><i class="fa fa-question-circle" aria-hidden="true"></i>创作声明：无声明<i class="fa fa-angle-right" aria-hidden="true"></i></span>
+					<span><i class="fa fa-check-square selected" aria-hidden="true"></i>推送给我的关注者</span>
+				</div>
+				</div>
+
+			</div>
+
+			<div class="showMore_answer_box">查看全部2,124个回答</div>
+
+			<div class="answer_list_container">
+				<div class="answer_list_item">
+				  {% for  answer in answers %}
+					<div class="userInfo">
+						<img src="{% static 'images/default.jpg' %}" alt="" height="40px">
+						<div><span>{{answer.username}}</span><span>{{answer.slogan}}</span></div>
+					</div>
+					<div class="agree_tips">4,399赞同了该回答</div>
+					<div class="main_answer_box">
+					    {% autoescape off %}
+                        <p>{{answer.content}}<p>
+                        {% endautoescape %}
+					</div>
+					<br/>
+					<br/>
+				{% endfor %}
+				</div>
+			</div>
+		</form>
+		<div class="Sticky">
+			<div class="Sticky_title">相关问题</div>
+			<div class="Sticky_item_list">
+				<ul>
+					<li><a href="">为什么有的经济条件好的车主不想开豪车？</a><span>7个回答</span></li>
+					<li><a href="">作为普通人的我们除了在家躺着，还能做点什么？</a><span>155个回答</span></li>
+					<li><a href="">作为一个普通人，如何增加自己的微博粉丝？</a><span>88个回答</span></li>
+					<li><a href="">玛莎拉蒂哪款车性价比值得推荐？为什么？</a><span>66个回答</span></li>
+				</ul>
+			</div>
+			<div class="Sticky_title">关于作者</div>
+			<div class="Sticky_item_list">
+				<div class="userInfo_big">
+					<img src="images/default.jpg" alt="" height="65px" style="border-radius: 5px;">
+					<div><span>量子永生</span><span>视频之外，想象之巅</span></div>
+				</div>
+				<div class="follows_detail_box">
+					<div>
+						<span>回答</span>
+						<span>228</span>
+					</div>
+					<div>
+						<span>文章</span>
+						<span>228</span>
+					</div>
+					<div>
+						<span>关注者</span>
+						<span>228</span>
+					</div>
+				</div>
+				<div class="follow_contact_btn">
+					<span><i class="fa fa-plus" aria-hidden="true"></i>关注他</span>
+					<span><i class="fa fa-comments" aria-hidden="true"></i>发私他</span>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script>
+		$('#my_editor').trumbowyg({
+            //设置中文
+            lang: 'zh_cn',
+            // closable: true,
+            fixedBtnPane: true,
+            //设置颜色插件
+            btnsAdd: ['foreColor','backColor'],
+             btnsDef: {
+		    // 设置上传的3种方法，远程上传，本地上传，图片64位加密
+		    image: {
+		                dropdown: ['insertImage', 'upload','base64'],
+		                ico: 'insertImage'
+		            }
+		        },
+            // Redefine the button pane
+            btns: ['viewHTML',
+                    '|', 'formatting',
+                    '|', 'btnGrp-semantic',
+                    '|', 'link',
+                    '|', 'image',
+                    '|', 'btnGrp-justify',
+                    '|', 'btnGrp-lists',
+                    '|', 'horizontalRule']
+        });
+	</script>
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+{% extends "base.html" %}
+{% block title %}虾问-注册{% endblock title %}
+{% block css %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/register.css' %}">
+{% endblock css %}
+
+{% block js %}
+<script src="{% static 'js/register.js' %}"></script>
+{% endblock js %}
+
+{% block body %}
+    <div class="register-form-container">
+        <a href="index.html">
+            <p class="chipscoco-title"><span>虾问</span><span>社区</span></p>
+        </a>
+        <p class="chipscoco-slogan">好好学习，天天向上</p>
+		{% csrf_token %}
+        <input type="text" placeholder="输入邮箱" class="input-group" name="email" />
+        <div class="captcha-input" style="display:block;">
+            <input type="text" placeholder="输入短信验证码" maxlength="6" class="input-group" name="captcha" oninput="value=value.replace(/[^\d]/g,'')" />
+            <span class="captcha-control">获取验证码</span>
+        </div>
+        <div class="password-input">
+            <input type="password" placeholder="输入密码 (密码包含数字，字母，特殊字符)" name="password" class="input-group" />
+        </div>
+        <input type="button" value="注册" id="im-register-btn">
+        <div class="row">
+            <p><a href="login.html">已有账号，立即登录</a></p>
+        </div>
+
+        <div class="i-agree-container">
+            <span class="i-agree"><span class="i-agree-circle"></span></span>
+            <p>我已阅读<a href="#">《薯条社区协议》</a><a href="#">《用户保护隐私协议》</a></p>
+        </div>
+    </div>
+    <div class="show-tips-container">
+        <p></p>
+    </div>
+{% endblock %}
+
+</html>

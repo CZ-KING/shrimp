@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+{% extends "base.html" %}
+{% block title %}虾问-注册{% endblock title %}
+{% block css %}
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/profile.css' %}">
+{% endblock css %}
+
+{% block js %}
+<script type="text/javascript" src="{% static 'js/profile.js' %}"></script>
+{% endblock js %}
+
+{% block body %}
+	
+
+
+	<form action="">
+		<div class="modal_wrapper">
+			<div class="make_question_container">
+				<span class="close"></span>
+				<div class="ask_title_wrapper">
+					<img src="{% static 'images/default.jpg' %}" alt="profile" width="40px">
+					<div class="ask_title">
+						<textarea type="text" placeholder="写下你的问题，准确地描述问题更容易得到解答"></textarea>
+						<span class="tips">你还没有给问题添加问号</span>
+					</div>
+				</div>
+		
+				<div class="askDetail_actionWrapper">
+					<i class="fa fa-font" aria-hidden="true"></i>
+					<i class="fa fa-picture-o" aria-hidden="true"></i> 
+				</div>
+		
+				<div class="askDetail_inputWrapper">
+					<textarea name="" id="" cols="30" rows="10" placeholder="输入问题背景、条件等详细信息（选填）"></textarea>
+				</div>
+
+				<div class="add_topic_box">
+					<span class="topic">电影</span>
+					<span><i class="fa fa-plus" aria-hidden="true"></i>添加话题（至少添加一个话题）</span>
+				</div>
+				<div class="submit_btn"><button type="submit">提问</button></div>
+			</div>
+		</div>
+	</form>
+
+	<div class="header_container">
+		<div class="app_header">
+			<div class="app_logo">
+				<img src="{% static 'images/chipscoco.png' %}" width="100px" height="90%"> 
+			</div>
+
+			<div class="navigation_box">
+				<ul>
+					<li><a href="/">首页</a></li>
+					<!-- <li><a href="#">发现</a></li> -->
+					<li><a href="#">等你来答</a></li>
+				</ul>
+			</div>
+
+			<div class="search_container">
+				<form action="">
+					<input type="text" placeholder="游戏玩得菜怎么办" id="QESinput">
+					<input type="button" name="" value="提问" id="makeQuestion">
+				</form>
+				<div class="search_detail_box">
+					<div class="search_header_box">
+						<span>搜索历史</span>
+						<span><i class="fa fa-trash" aria-hidden="true"></i>&nbsp;删除</span>
+					</div>
+					<div class="search_history_item">
+						<ul>
+							<li>湖人总冠军</li>
+							<li>有没有超级仙气的朋友圈文案</li>
+							<li>一给我里giaogiao</li>
+							<li>人在读大学时努力起来有多可怕？</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+
+			<div class="user_profile_container">
+				<span class="im_bell_icon">
+					<i class="fa fa-bell" aria-hidden="true"></i>
+					<span class="number">3</span>
+				</span>
+				<span class="im_messages_icon">
+					<i class="fa fa-comments" aria-hidden="true"></i>
+					<span class="number">2</span>
+				</span>
+				<div class="profile_img_box">
+					<img src="{% static 'images/default.jpg' %}" width="100%">
+				</div>
+				<span class="menu_arrow"></span>
+				<div class="user_profile_menu">
+					<ul>
+						<li><i class="fa fa-user" aria-hidden="true"></i><a href="./profile.html">我的主页</a></li>
+						<li><i class="fa fa-cog" aria-hidden="true"></i><a href="#">设置</a></li>
+						<li><i class="fa fa-power-off" aria-hidden="true"></i><a href="#">退出</a></li>
+					</ul>
+				</div>
+				<!-- <span class="im_login_btn"><a href="./login.html">登录</a></span>
+				<span class="im_register_btn"><a href="./register.html">加入虾问</a></span> -->
+			</div>
+		</div>
+	</div>
+
+	<div class="profile_pannel_container">
+		<div class="profile_pannel_bg">
+			<img src="{% static 'images/bg.jpg' %}" width="100%">
+		</div>
+		<div class="profile_info_container">
+			<div class="profile_info_box">
+				<span class="big_profile"><img src="{% static 'images/StephenChow.jpg' %}" width="155px"></span>
+			</div>
+			<div class="profile_info_detail_box">
+				<div class="profile_info_item">
+					<p class="username">{{user.username}}</p>
+					<p class="description">在线学Python：www.chipscoco.com</p>
+				</div>
+				<div class="profile_info_item">
+					<i class="fa fa-envelope" aria-hidden="true"></i>
+					<ul>
+						<li>互联网</li>
+						<li>广州市薯条橙子信息科技有限公司</li>
+						<li>总助</li>
+					</ul>
+				</div>
+				<div class="profile_info_item">
+					<i class="fa fa-graduation-cap" aria-hidden="true"></i>
+					<ul>
+						<li>湖南大学</li>
+						<li>播音专业​</li>
+					</ul>
+					<i class="fa fa-venus" aria-hidden="true"></i>
+					
+				</div>	
+				
+				<div class="profile_edit_and_show">
+					<p><i class="fa fa-angle-down" aria-hidden="true"></i>查看详细资料</p>
+					<span>编辑个人资料</span>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="main_content_container">
+		<div class="left_content_container">
+			<div class="tablist_contaienr">
+				<ul>
+					<li class="selected"><a href="#">动态</a></li>
+					<li><a href="#">回答<span>26</span></a></li>
+					<li><a href="#">提问<span>0</span></a></li>
+					<li><a href="#">收藏<span>17</span></a></li>
+					<li><a href="#">关注</a></li>
+				</ul>
+			</div>
+
+			<div class="list_header">
+				<h4><span>我的动态</span></h4>
+			</div>
+
+			<div class="list_item">
+				<div class="activityItem_meta">
+					<span>赞同了回答</span>
+					<span>09-15</span>
+				</div>
+				<div class="contentItem_title">
+					<a href="#">有哪些不烂大街的可以用来秀恩爱的朋友圈文案？</a>
+				</div>
+				<div class="content_authorInfo">
+					<span><img src="{% static 'images/StephenChow.jpg' %}"  width="38px;"></span>
+					<div class="author_name_and_detail">
+						<p>{{user.username}}</p>
+						<p>一起做一个温柔的人吧</p>
+					</div>
+				</div>
+				<div class="votes">364<span>人也赞同了该回答</span></div>
+				<div class="contentItem_answerItem">
+					<p>先从计算机组成原理开始入手，了解现代计算机的核心组成及工作原理。然后学下C语言或Python。之所以推荐C语言，是因为C语言简洁，难度较低，学完C可以接着学数据结构与算法。然后继续学TCP/IP协议，网络编程，操作系统等知识。 以上的知识，用来打基础。打好基础以后，再选择一门特定的技术领域，作为你的学习方向。 以上是我的回…<span class="showMore_contentItem">阅读全文<i class="fa fa-angle-down" aria-hidden="true"></i></span></p>
+				</div>
+				<div class="contentItem_action_box">
+					<span>
+						<button><i class="fa fa-caret-up" aria-hidden="true"></i>赞同</button>
+						<button><i class="fa fa-caret-down" aria-hidden="true"></i></button>
+					</span>
+					<span><button><i class="fa fa-comment" aria-hidden="true"></i>添加评论</button></span>
+					<span><button><i class="fa fa-share" aria-hidden="true"></i>分享</button></span>
+					<span><button><i class="fa fa-star" aria-hidden="true"></i>收藏</button></span>
+					<span><button><i class="fa fa-heart" aria-hidden="true"></i>喜欢</button></span>
+					<span></span>
+				</div>
+			</div>
+
+			<div class="list_item">
+				<div class="activityItem_meta">
+					<span>赞同了回答</span>
+					<span>09-15</span>
+				</div>
+				<div class="contentItem_title">
+					<a href="#">有哪些不烂大街的可以用来秀恩爱的朋友圈文案？</a>
+				</div>
+				<div class="content_authorInfo">
+					<span><img src="{% static 'images/StephenChow.jpg' %}"  width="38px;"></span>
+					<div class="author_name_and_detail">
+						<p>奕迅先森</p>
+						<p>一起做一个温柔的人吧</p>
+					</div>
+				</div>
+				<div class="votes">364<span>人也赞同了该回答</span></div>
+				<div class="contentItem_answerItem">
+					<p>先从计算机组成原理开始入手，了解现代计算机的核心组成及工作原理。然后学下C语言或Python。之所以推荐C语言，是因为C语言简洁，难度较低，学完C可以接着学数据结构与算法。然后继续学TCP/IP协议，网络编程，操作系统等知识。 以上的知识，用来打基础。打好基础以后，再选择一门特定的技术领域，作为你的学习方向。 以上是我的回…<span class="showMore_contentItem">阅读全文<i class="fa fa-angle-down" aria-hidden="true"></i></span></p>
+				</div>
+				<div class="contentItem_action_box">
+					<span>
+						<button><i class="fa fa-caret-up" aria-hidden="true"></i>赞同</button>
+						<button><i class="fa fa-caret-down" aria-hidden="true"></i></button>
+					</span>
+					<span><button><i class="fa fa-comment" aria-hidden="true"></i>添加评论</button></span>
+					<span><button><i class="fa fa-share" aria-hidden="true"></i>分享</button></span>
+					<span><button><i class="fa fa-star" aria-hidden="true"></i>收藏</button></span>
+					<span><button><i class="fa fa-heart" aria-hidden="true"></i>喜欢</button></span>
+					<span></span>
+				</div>
+			</div>
+		</div>
+
+		<div class="right_content_container">
+			<div class="card_creatorEntrance">
+				<div class="card_ce_header">
+					<div class="ce_creator_title">
+						<img src="{% static 'images/creator_entrance.png' %}"  width="75px">
+						<span>
+							<p>创作中心<span class="level">Lv&nbsp;2</span></p>
+							<p>有新权益待开启</p>
+						</span>
+					</div>
+					<span class="enter_creatorEntrance"><i class="fa fa-angle-right" aria-hidden="true"></i></span>
+				</div>
+				<div class="views_and_like_box">
+					<div class="views_like_box">
+						<p>昨日被阅读数</p>
+						<p class="numbers">6</p>
+						<p>较前日<i class="fa fa-arrow-down" aria-hidden="true"></i><span>45.45%</span></p>
+					</div>
+					<div class="views_like_box">
+						<p>昨日获赞同数</p>
+						<p class="numbers">0</p>
+						<p>较前日--</p>
+					</div>	
+				</div>
+				<div class="header_notice_box">
+					<p>瓦力保镖为你的创作提供持续保护</p><i class="fa fa-shield" aria-hidden="true"></i>
+				</div>
+			</div>
+			<div class="achievement_card">
+				<div class="card_header">个人成就</div>
+				<div class="achievement_box">
+					<span><i class="fa fa-thumbs-up" aria-hidden="true"></i></span>
+					<span>
+						<p>获得34次赞同</p>
+						<p>获得27次喜欢，16次收藏</p>
+					</span>
+				</div>
+			</div>
+
+			<div class="followship_card_box">
+				<div>
+					<span>关注了</span>
+					<span>4</span>
+				</div>
+				<div>
+					<span>关注者</span>
+					<span>4</span>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}
+</html>

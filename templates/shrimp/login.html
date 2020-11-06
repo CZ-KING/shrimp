@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+{% extends "base.html" %}
+{% block title %}虾问-注册{% endblock title %}
+{% block css %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/login.css' %}">
+{% endblock css %}
+
+{% block js %}
+<script src="{% static 'js/login.js' %}"></script>
+{% endblock js %}
+
+
+{% block body %}
+    <div class="slide_tips"></div>
+
+    <div class="login-form-container">
+        <a href="index.html"><p class="chipscoco-title"><span>虾问</span><span>社区</span></p></a>
+        <p class="chipscoco-slogan">好好学习，天天向上</p>
+		{% csrf_token %}
+        <input type="text" id="phone" placeholder="输入邮箱" class="input-group"  name="email"  />
+        <span class="lg_tips">还没有输入邮箱呢&nbsp;-_-</span>
+        <div class="password-input">
+            <input type="password" placeholder="输入密码" class="input-group" id="password" name="password" />
+            <span class="password-control"><i class="fa fa-eye-slash" id="im-black-eye"></i></span>
+        </div>
+        <span class="pwd_tips" style="display: none">还没输入密码呢&nbsp;-_-</span>
+        <div class="captcha-input">
+            <input type="text" id="captcha" placeholder="输入短信验证码" class="input-group" name="captcha" maxlength="6" oninput="value=value.replace(/[^\d]/g,'')" />
+            <span class="captcha-control">获取验证码</span>
+        </div>
+        <div class="row" id="switch-pwd-vcode">
+            <p class="tips-text"><a href="javascript:;" class="a-for-captcha-login">手机验证码登录</a></p>
+            <p class="operation-tips-text"><a href="forget.html">找回密码</a></p>
+        </div>
+        <input type="button" value="登录" id="login_btn">
+        <div class="row">
+            <p><a href="#">微信扫码登录</a></p>
+            <p><a href="register.html">没有账号，立即注册</a></p>
+        </div>
+    </div>
+{% endblock %}
+
+</html>
